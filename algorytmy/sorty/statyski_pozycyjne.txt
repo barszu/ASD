@@ -1,0 +1,9 @@
+Statystyki pozycyjne
+
+select(A,k) - k-ta statystyka pozycyjna, czyli 
+            element A, ktory bylby na 
+            k-tej pozycji po posortowaniu
+
+select(A,0) = min(A)
+select(A,-1) = max(A)
+select(A, len/2 ) = mediana A

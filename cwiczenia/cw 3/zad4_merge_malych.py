@@ -1,0 +1,1 @@
+# scalamy parami listy i przez to n log n bo ilosc list sie zmienia wykladniczo w dol
