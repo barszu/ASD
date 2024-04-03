@@ -54,3 +54,38 @@ T_sorted = [-10, 0, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 10, 100]
 # print(quick_select(T,5))
 a = qSelect(T,5)
 print(T ,a)
+
+def swap(T,a,b):
+    T[a],T[b]=T[b],T[a]
+
+def partition(A,p,r):
+    # bierzemy x(pivot) z samego konca
+    # analizujemy tablice od lewa do prawa
+    # szukamy miejsca medianowego chwilowego
+    # x - pivot
+    # j - aktualnie przetwarzany el
+    # i - el tuz przed el > x (na lewo od niego sa <)
+    x=A[r]
+    i=p-1 #przed tablica bo nie przetworzylismy el >= x
+    for j in range(p,r,1):
+        if A[j]<=x:
+            i += 1
+            # swap(A[i],A[j])
+            swap(A,i,j)
+    # swap(A[i+1],A[r])
+    swap(A,i+1,r)
+    return i+1
+
+def qselect(A , l , r , k):
+    if l <= r :
+        pivot_idx = partition(A,l,r)
+        if pivot_idx == k:
+            return A[pivot_idx]
+        elif pivot_idx < k:
+            return qSelect(A, pivot_idx , r , k)
+        elif pivot_idx > k:
+            return qSelect(A, l , pivot_idx-1 , k)
+        
+import random
+A = [random.randint(0,20) for i in range(20)]
+q = qSelect(A,0,len(A)-1,1)

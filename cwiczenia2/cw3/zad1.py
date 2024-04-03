@@ -1,6 +1,7 @@
-# znajdujemy mediane-> pivot
-# dzielimy tablice na el < od pivot , pivot , > od piwot
-# lewa i prawa sortujemy rek
+# zrob qsorta bez rekurencji
+
+
+
 
 def swap(T,a,b):
     T[a],T[b]=T[b],T[a]
@@ -23,32 +24,11 @@ def partition(A,p,r):
     swap(A,i+1,r)
     return i+1
 
-# partition Hoare'a
-
 def quicksort(A,p,r): #p,r zakres tablicy teraz sortowanej
     if p<r : #mamy prace do wykonania len>1
         q=partition(A,p,r) #partition rozdziela tablice tak jak wyzej opisano
         quicksort(A,p,q-1) #sortujemy lewa
         quicksort(A,q+1,r) #sortujemy prawa
-
-# lepszy pivot
-# - losowy el tablicy
-# - mediana z np 1 ostatniego i srodkowego el
-
-# usuniecie rek ogonowej z qs
-def qs_bez_rek(A,p,r):
-    while p<r :
-        q = partition(A,p,r)
-        quicksort(A,p,q-1)
-        p = q+1
-
-
-def qs(a):
-    if len(a)==0 : return []
-    piv = a[0]
-    less = qs([i for i in a[1:] if i <= piv])
-    grt = qs([i for i in a[1:] if i > piv])
-    return [*less, piv, *grt]
 
 def qs_bez_rek(A):
     stack = [(0, len(A)-1)]
@@ -60,9 +40,27 @@ def qs_bez_rek(A):
             stack.append((q+1,r)) #prawa strona
             stack.append((p,q-1)) #lewa strona
 
+            # quicksort(A,p,q-1) #sortujemy lewa
+            # quicksort(A,q+1,r) #sortujemy prawa
 
 
 T=[6,10,20,15,0,0]
-# quicksort(T,0,len(T)-1)
-T=qs(T)
+
+qs_bez_rek(T)
 print(T)
+
+import random
+
+# Tworzenie kilku losowych tablic
+array1 = [random.randint(0, 1000) for _ in range(10)]
+array2 = [random.randint(0, 1000) for _ in range(10)]
+array3 = [random.randint(0, 1000) for _ in range(10)]
+
+# Sortowanie tablic za pomocą qs_bez_rek
+qs_bez_rek(array1)
+qs_bez_rek(array2)
+qs_bez_rek(array3)
+
+print(array1 == sorted(array1))
+print(array2 == sorted(array2))
+print(array3 == sorted(array3))

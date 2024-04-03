@@ -1,6 +1,6 @@
 """
 Sortowanie pozycyjne
-sort| z uzyciem cnt sorta (kolumny)->wsm to bucket sort(od tylu)
+sort| z uzyciem cnt sorta (kolumny)->wsm to bucket sort(od tylu! zeby stabilnosc)
 kr a
 ar t
 ko t
