@@ -85,6 +85,32 @@ def qselect(A , l , r , k):
             return qSelect(A, pivot_idx , r , k)
         elif pivot_idx > k:
             return qSelect(A, l , pivot_idx-1 , k)
+
+
+# NAJNOWSZY CHB DZIALA BO TESTOWALEM
+def partition(A,l,r):
+    x=A[r]
+    i=l #przed tablica bo nie przetworzylismy el >= x
+    for j in range(l,r): #porownywalny el
+        if A[j]<=x:
+            A[i] , A[j] = A[j] , A[i]
+            i += 1
+            
+    A[i] , A[r] = A[r] , A[i]
+    return i
+
+def q_select(A,k):
+    l , r = (0,len(A)-1)
+    while l <= r:
+        pivot_idx = partition(A,l,r)
+
+        if pivot_idx == k: return A[pivot_idx]
+        elif pivot_idx < k: 
+            l = pivot_idx
+            # r = r
+        elif pivot_idx > k: 
+            # l = l
+            r = pivot_idx-1
         
 import random
 A = [random.randint(0,20) for i in range(20)]
