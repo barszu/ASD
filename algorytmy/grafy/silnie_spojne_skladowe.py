@@ -10,15 +10,18 @@ def: wierzcholki u,v naleza do (tej samej) silnie spojnej skladowej jesli istnie
 gdyby nie byl dagiem mielibysmy dokladnie jedna wspolna skladowa
 
 Algorytm:
-- wykonaj DFS na grafie zapisujac czasy przetworzenia
+- wykonaj DFS na grafie zapisujac czasy przetworzenia, 
+  time++ kiedy dfs zostanie zdjety ze stacka, wierzcholek przetworzony (nie ma dokad pojsc)
 - odwroc kierunek wszystkich krawedzi
 - wykonaj DFS, wybierajac (puszczajac DFS visit) startowe wierzcholki w kolejnosci malejacych czasow przetworzenia (duze->male)
   wierzcholki odwiedzone w danym DFS_visit tworza sinie spojna skladowa (iteracja glownej petli sterujacej)
+  x malych dfs zostanie wykonanych
 
 zlozonosc:
 V( E+V ) -ls , V(V^2) -matrix
 """
 def DFS_time_set(G,done_time):
+
     # G=(V,E)
     time=0
     n=len(G)

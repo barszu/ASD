@@ -5,6 +5,7 @@ BELLMAN-FORD - dikstra ale wagi moga byc ujemne (brut)
 GRAF SKIEROWANY
 - kiedy jest ujemna waga to tak jakby byla krawedz w druga strone z ta waga
 - musimy wykrywac ujemne cykle zeby sie nie zapetlac
+- mozna sie wrocic do odwiedzonego wierzcholka i go poprawic! <- w przeciwienstwie do dikstry
 
 1. inicjalizacja
     for v e V:

@@ -20,7 +20,7 @@ Algo:
 
 IDEA:
 low(v) - identyfikator cyklu w grafie 
-(ten sam numer low maja te co naleza do tego samego cyklu)
+(ten sam numer low maja te co naleza do tego samego cyklu) <- szuka najwikeszych mozliwych cykli i je grupuje
 
 dzialanie:
 - zapisuj w tablicy visit_time wedrujac w dfs

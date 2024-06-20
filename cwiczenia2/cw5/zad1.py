@@ -1,0 +1,1 @@
+'czy graf jest dwudzielny?'

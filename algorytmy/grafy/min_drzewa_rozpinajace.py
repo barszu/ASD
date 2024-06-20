@@ -38,6 +38,8 @@ zlonosc: O(E logV ) - zlozonosc czasowa przy szybkim wykrywaniu tych cykli
 """
 """
 PRIM dla MST - kopja dikstry
+- dzialac bedzie dla skierowanych!
+
 v - wierzcholek startowy
 1. wrzuc kazdy wierzcholek do PQ w waga inf (ale tak naprawde to nie) 
     (jakim kosztem mozna rozszerzyc MST o dany wierzcholek)
@@ -99,6 +101,71 @@ def kruskal(edges_tab, v_no): #edges=[(u,v,waga)]
     
     return minimum_spanning_tree
 
+
+#alternatywne find union
+class Node:
+    def __init__(self, value):
+        self.parent = self
+        self.members_no = 1  # Pojedynczy węzeł jest zbiorem zawierającym jeden element
+        self.value = value
+
+def find_set(x: Node) -> Node:
+    # Znajduje reprezentanta zbioru, do którego należy x
+    if x.parent != x:
+        x.parent = find_set(x.parent)  # Kompresja ścieżki
+    return x.parent
+
+def union(x: Node, y: Node):
+    # Łączy dwa zbiory, do których należą x i y
+    root_x = find_set(x)
+    root_y = find_set(y)
+
+    if root_x != root_y:
+        if root_x.members_no > root_y.members_no:
+            root_y.parent = root_x
+            root_x.members_no += root_y.members_no  # Uaktualnienie liczby elementów w zbiorze root_x
+        else:
+            root_x.parent = root_y
+            root_y.members_no += root_x.members_no  # Uaktualnienie liczby elementów w zbiorze root_y
+
+
 edg = [(0, 1, 4), (0, 7, 8), (1, 7, 11), (1, 2, 8), (2, 3, 7), (2, 8, 2), (2, 5, 4), (3, 4, 9), (3, 5, 14), (4, 5, 10), (5, 6, 2), (6, 7, 1), (6, 8, 6), (7, 8, 7)]
 v_no = 9
 print(kruskal(edg,v_no))
+
+
+
+from queue import PriorityQueue
+
+def prim(G, start=0): #dikstra ale prioretyzujemy gardlo
+    n = len(G)
+    visited = [False] * n
+    mst_edges = []
+
+    Q = PriorityQueue()
+    Q.put((0, start, -1))  # (waga krawędzi, wierzchołek, rodzic)
+    
+    while not Q.empty():
+        weight, u, parent = Q.get() #minimalizujemy gardlo
+        if visited[u]: continue
+        visited[u] = True
+        mst_edges.append((parent, u, weight) ) if parent != -1 else None
+
+        for v, dist in G[u]:
+            if not visited[v]:
+                Q.put((dist, v, u)) 
+
+    return mst_edges
+
+# Przykład użycia
+G = [
+    [(1, 2), (3, 6)],        # Krawędzie dla wierzchołka 0
+    [(0, 2), (2, 3), (3, 8)],# Krawędzie dla wierzchołka 1
+    [(1, 3), (3, 7)],        # Krawędzie dla wierzchołka 2
+    [(0, 6), (1, 8), (2, 7)] # Krawędzie dla wierzchołka 3
+]
+
+mst = prim(G)
+print("Minimalne drzewo rozpinające (MST):")
+for u, v, weight in mst:
+    print(f"Krawędź ({u}, {v}) o wadze {weight}")
