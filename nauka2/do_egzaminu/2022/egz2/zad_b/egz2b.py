@@ -1,7 +1,7 @@
 from egz2btesty import runtests
 
 
-def magic2(C): #O(n^2)
+def magic2(C):  # O(n^2)
     INF = float('inf')
     n = len(C)
     B = sum([C[i][0] for i in range(n)]) + 1
@@ -42,7 +42,7 @@ def magic2(C): #O(n^2)
     return a
 
 
-def maxGoldInPath(C):  # "Problemem najdłuższej ścieżki w DAG z wagami"
+def magic(C):  # "Problemem najdłuższej ścieżki w DAG z wagami"
     n = len(C)
     # [G,[K0,W0],[K1,W1],[K2,W2]]
     # Initialize max_gold array
@@ -51,17 +51,17 @@ def maxGoldInPath(C):  # "Problemem najdłuższej ścieżki w DAG z wagami"
 
     # Iterate through vertices in topological order
     for i in range(n):
-        G = C[i][0]
-        for k, v in C[i][1:]:
-            if v == -1 or G - k > 10: continue  # niepoprawny wierzcholek , w skrzynce zostaje za duzo
-            travel = max_gold[i] + G - k  # cost to get from start to v
-            if travel < 0: continue  # nie ma mowy o tym zeby tam przejsc
+        G = C[i][0]  # zloto w skrzyni
+        for k, v in C[i][1:]:  # dla dzrwi
+            if v == -1 or G - k > 10: continue  # niepoprawny wierzcholek | w skrzynce zostaje za duzo
+            # (musialbym wziac wiecej niz 10), zabieram G-k zlota
+            #po przejsciu mam (dawna ilosc zlota + zloto z komnaty - koszt przejscia do komnaty v)
+            travel = max_gold[i] + G - k
+            if travel < 0: continue  # nie da sie przejsc
             max_gold[v] = max(max_gold[v], travel)  # update dist[v]
 
     return max_gold[n - 1]  # Max gold at the last vertex
 
 
 # zmien all_tests na True zeby uruchomic wszystkie testy
-# runtests( magic, all_tests = True )
-# runtests( magic2 , all_tests = True)
-runtests(maxGoldInPath, all_tests=True)
+runtests(magic, all_tests=True)
